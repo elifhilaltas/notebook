@@ -1,6 +1,7 @@
 package com.notebook.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "NOTEBOOK")
@@ -9,13 +10,16 @@ public class Notebook {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NOTEBOOK_SEQ_GEN")
     @SequenceGenerator(name = "NOTEBOOK_SEQ_GEN")
-    private Long id;
+    @Column(name = "BOOK_ID")
+     private Long id;
 
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "USER_ID")
-    private String userId;
+    // user'a bağlı notebooklar
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
 
     public Long getId() {
@@ -31,15 +35,15 @@ public class Notebook {
     }
 
     public void setName(String name) {
-        name = name;
+        this.name = name;
     }
 
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
 }
