@@ -13,7 +13,7 @@ public class Note {
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "ID")
+    @JoinColumn(name = "BOOK_ID")
     private Notebook notebook;
 
     @Column(name = "NAME")
