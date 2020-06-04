@@ -1,9 +1,10 @@
 package com.notebook.service;
 
+import com.notebook.domain.Notebook;
 import com.notebook.domain.User;
 import com.notebook.exception.UserNotFoundException;
 import com.notebook.repository.UserRepository;
-import javassist.NotFoundException;
+import com.notebook.repository.NotebookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,11 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    NotebookRepository notebookRepository;
+
+    @Autowired
+    NotebookService notebookService;
 
     private User toEntity(User user) {
         User entity = new User();
