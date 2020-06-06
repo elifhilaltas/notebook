@@ -46,6 +46,7 @@ public class NotebookController {
 
     }
 
+
     @GetMapping("/note/{id}")
     public List<Note> getUserById(@PathVariable(required = true) Long id){
         return noteService.getNoteByNoteBookId(id);
