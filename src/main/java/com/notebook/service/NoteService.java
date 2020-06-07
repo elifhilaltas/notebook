@@ -4,6 +4,7 @@ package com.notebook.service;
 import com.notebook.domain.Note;
 import com.notebook.domain.Notebook;
 import com.notebook.exception.BookNotFoundException;
+import com.notebook.exception.InternalServerException;
 import com.notebook.exception.NoteNotFoundException;
 import com.notebook.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +37,20 @@ public class NoteService {
         return (List<Note>) noteRepository.findAll();
     }
 
-    public Note getNoteById(Long id){
-        Optional<Note> optionalNotebook= noteRepository.findById(id);
-        return optionalNotebook.orElseThrow(() -> new NoteNotFoundException("Book not found"));
+    public Note getNoteById(Long noteId){
+        Optional<Note> optionalNote= noteRepository.findById(noteId);
+        try {
+            return optionalNote.orElseThrow(() -> new NoteNotFoundException("Note Not Found" ," Could not found Note with id :" + noteId ,1));
+        }
+        catch (InternalServerException ex) {
+
+            return optionalNote.orElseThrow(() -> new InternalServerException("Internal Error", " Internal Sever Error :", 500));
+
+        }
 
     }
-    public void delete(Long id){
-        noteRepository.deleteById(id);
+    public void delete(Long noteId){
+        noteRepository.deleteById(noteId);
     }
 
 

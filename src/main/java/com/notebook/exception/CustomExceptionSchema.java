@@ -1,21 +1,18 @@
 package com.notebook.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-@ResponseStatus(code = HttpStatus.NOT_FOUND)
-public class UserNotFoundException extends RuntimeException  {
+public class CustomExceptionSchema {
     private String message;
     private String detail;
     private int code;
 
-    public UserNotFoundException(String message, String detail, int code) {
+    protected CustomExceptionSchema(){}
+
+    public CustomExceptionSchema(String message, String detail, int code) {
         this.message = message;
         this.detail = detail;
         this.code = code;
     }
 
-    @Override
     public String getMessage() {
         return message;
     }
@@ -40,4 +37,3 @@ public class UserNotFoundException extends RuntimeException  {
         this.code = code;
     }
 }
-

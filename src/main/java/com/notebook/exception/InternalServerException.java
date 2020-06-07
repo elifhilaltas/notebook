@@ -1,15 +1,16 @@
 package com.notebook.exception;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+        import org.springframework.http.HttpStatus;
+        import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.NOT_FOUND)
-public class UserNotFoundException extends RuntimeException  {
+@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+public class InternalServerException extends RuntimeException {
     private String message;
     private String detail;
     private int code;
 
-    public UserNotFoundException(String message, String detail, int code) {
+
+    public InternalServerException(String message, String detail, int code) {
         this.message = message;
         this.detail = detail;
         this.code = code;
@@ -40,4 +41,3 @@ public class UserNotFoundException extends RuntimeException  {
         this.code = code;
     }
 }
-

@@ -2,6 +2,7 @@ package com.notebook.service;
 import com.notebook.domain.Notebook;
 import com.notebook.domain.User;
 import com.notebook.exception.BookNotFoundException;
+import com.notebook.exception.InternalServerException;
 import com.notebook.repository.NotebookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,13 +32,21 @@ public class NotebookService {
         return (List<Notebook>) notebookRepository.findAll();
     }
 
-    public Notebook getNotebookById(Long id){
-        Optional<Notebook> optionalNotebook= notebookRepository.findById(id);
-        return optionalNotebook.orElseThrow(() -> new BookNotFoundException("Book not found"));
+    public Notebook getNotebookById(Long bookId){
+        Optional<Notebook> optionalNotebook= notebookRepository.findById(bookId);
+        try {
+        return optionalNotebook.orElseThrow(() -> new BookNotFoundException("Notebook Not Found" ," Could not found Notebook with id :" + bookId ,1));
 
+         }
+        catch (InternalServerException ex) {
+
+        return optionalNotebook.orElseThrow(() -> new InternalServerException("Internal Error", " Internal Sever Error :", 500));
+
+        }
     }
-    public void delete(Long id){
-        notebookRepository.deleteById(id);
+
+    public void delete(Long bookId){
+        notebookRepository.deleteById(bookId);
     }
 
 
