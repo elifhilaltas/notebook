@@ -1,12 +1,14 @@
 package com.notebook.controller;
 
 import com.notebook.domain.Note;
-import com.notebook.domain.User;
 import com.notebook.domain.Notebook;
+import com.notebook.domain.User;
+import com.notebook.repository.UserRepository;
 import com.notebook.service.NoteService;
 import com.notebook.service.NotebookService;
 import com.notebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +25,7 @@ public class UserController {
 
     @Autowired
     NoteService noteService;
+
 
     @GetMapping
     public List<User> getUsers(){
@@ -51,6 +54,21 @@ public class UserController {
     @GetMapping("/note/{id}")
     public List<Note> getAllNoteByUserId(@PathVariable(required = true) Long id){
         return noteService.findUsersAllNoteById(id);
+    }
+    // jwt configurations
+    private UserRepository userRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public UserController(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+
+        this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+    @RequestMapping(value = "/sign-up", method = RequestMethod.POST)
+    public void signUp(@RequestBody User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
     }
 
 }
