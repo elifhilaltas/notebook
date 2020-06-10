@@ -1,7 +1,6 @@
 package com.notebook.domain;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "USER")
@@ -18,6 +17,12 @@ public class User {
 
     @Column(name = "LASTNAME")
     private  String lastName;
+
+   @Column(name = "USERNAME")
+    private  String username;
+
+    @Column(name = "PASSWORD")
+    private  String password;
 
   //  @OneToMany(mappedBy = "userId")
  //   @Column(name = "NOTEBOOK_ID")
@@ -47,5 +52,19 @@ public class User {
         this.lastName = lastName;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
