@@ -1,13 +1,10 @@
 package com.notebook.service;
 
-import com.notebook.domain.Notebook;
 import com.notebook.domain.User;
-import com.notebook.exception.InternalServerException;
 import com.notebook.exception.UserNotFoundException;
-import com.notebook.repository.UserRepository;
 import com.notebook.repository.NotebookRepository;
+import com.notebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -44,18 +41,11 @@ public class UserService {
         return (List<User>) userRepository.findAll();
         }
 
-    public User getUserById(Long userId) {
+    public User getUserById(Long userId)  throws UserNotFoundException {
         Optional<User> optionalUser = userRepository.findById(userId);
-        try {
+        return optionalUser.orElseThrow(() ->new  UserNotFoundException("User Not Found", " Could not found User with id :" + userId, 1));
 
-            return optionalUser.orElseThrow(() -> new UserNotFoundException("User Not Found", " Could not found User with id :" + userId, 1));
-
-        } catch (InternalServerException ex) {
-
-            return optionalUser.orElseThrow(() -> new InternalServerException("Internal Error", " Internal Sever Error :", 500));
-
-        }
-    }
+         }
 
     }
 

@@ -1,16 +1,12 @@
 package com.notebook.exception;
 
-        import org.springframework.http.HttpStatus;
-        import org.springframework.web.bind.annotation.ResponseStatus;
+public class BaseException extends RuntimeException {
 
-@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
-public class InternalServerException extends RuntimeException {
     private String message;
     private String detail;
     private int code;
 
-
-    public InternalServerException(String message, String detail, int code) {
+    public BaseException(String message, String detail, int code) {
         this.message = message;
         this.detail = detail;
         this.code = code;

@@ -3,41 +3,12 @@ package com.notebook.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.NOT_FOUND)
-public class UserNotFoundException extends RuntimeException  {
-    private String message;
-    private String detail;
-    private int code;
+@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+public class UserNotFoundException extends BaseException {
 
     public UserNotFoundException(String message, String detail, int code) {
-        this.message = message;
-        this.detail = detail;
-        this.code = code;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
+        super(message, detail, code);
     }
 }
+
 

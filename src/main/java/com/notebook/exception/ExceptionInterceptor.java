@@ -15,7 +15,7 @@ public class ExceptionInterceptor extends ResponseEntityExceptionHandler {
         CustomExceptionSchema exceptionResponse =
                 new CustomExceptionSchema(
                         ex.getMessage(), ex.getDetail(), ex.getCode());
-        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity(exceptionResponse, HttpStatus.UNAUTHORIZED);
 
     }
     @ExceptionHandler(BookNotFoundException.class)
@@ -24,7 +24,7 @@ public class ExceptionInterceptor extends ResponseEntityExceptionHandler {
         CustomExceptionSchema exceptionResponse =
                 new CustomExceptionSchema(
                         ex.getMessage(), ex.getDetail(), ex.getCode());
-        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity(exceptionResponse, HttpStatus.UNAUTHORIZED);
 
     }
     @ExceptionHandler(NoteNotFoundException.class)
@@ -33,16 +33,16 @@ public class ExceptionInterceptor extends ResponseEntityExceptionHandler {
         CustomExceptionSchema exceptionResponse =
                 new CustomExceptionSchema(
                         ex.getMessage(), ex.getDetail(), ex.getCode());
-        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity(exceptionResponse, HttpStatus.UNAUTHORIZED);
 
     }
-    @ExceptionHandler(InternalServerException.class)
-    public final ResponseEntity<Object> handleAllExceptions(InternalServerException ex) {
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<Object> handleAllExceptions(Exception ex) {
 
-        CustomExceptionSchema exceptionResponse =
+    CustomExceptionSchema exceptionResponse =
                 new CustomExceptionSchema(
                         ex.getMessage(), ex.getDetail(), ex.getCode());
-        return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity(exceptionResponse, HttpStatus.OK);
 
     }
 }
