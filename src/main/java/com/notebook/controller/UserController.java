@@ -9,7 +9,10 @@ import com.notebook.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -29,8 +32,9 @@ public class UserController {
         return userService.getUsers();
     }
     @PostMapping
-    public void postUser(@RequestBody User user){
+    public void postUser(@RequestBody User user, HttpServletResponse response) throws IOException {
         userService.add(user);
+        response.getWriter().println("Added new user");
     }
 
     @GetMapping("/{id}")

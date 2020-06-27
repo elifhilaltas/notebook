@@ -4,11 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 
-@ResponseStatus(code = HttpStatus.NOT_FOUND)
-public class BookNotFoundException extends RuntimeException{
-    public BookNotFoundException(String message) {
-        super(message);
+@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+public class BookNotFoundException extends BaseException{
 
+
+    public BookNotFoundException(String message, String detail, int code) {
+        super(message, detail, code);
     }
 }
 

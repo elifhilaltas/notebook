@@ -1,7 +1,7 @@
 package com.notebook.service;
 import com.notebook.domain.Notebook;
-import com.notebook.domain.User;
 import com.notebook.exception.BookNotFoundException;
+import com.notebook.repository.NoteRepository;
 import com.notebook.repository.NotebookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,6 +14,9 @@ import java.util.Optional;
 public class NotebookService {
     @Autowired
     NotebookRepository notebookRepository;
+
+    @Autowired
+    NoteRepository noteRepository;
 
     private Notebook toEntity(Notebook notebook) {
         Notebook entity = new Notebook();
@@ -31,14 +34,15 @@ public class NotebookService {
         return (List<Notebook>) notebookRepository.findAll();
     }
 
-    public Notebook getNotebookById(Long id){
-        Optional<Notebook> optionalNotebook= notebookRepository.findById(id);
-        return optionalNotebook.orElseThrow(() -> new BookNotFoundException("Book not found"));
+    public Notebook getNotebookById(Long bookId) {
+        Optional<Notebook> optionalNotebook= notebookRepository.findById(bookId);
 
+        return optionalNotebook.orElseThrow(() -> new BookNotFoundException("Notebook Not Found" ," Could not found Notebook with id :" + bookId ,1));
     }
-    public void delete(Long id){
-        notebookRepository.deleteById(id);
-    }
+
+    public void delete(Long bookId){
+        notebookRepository.deleteById(bookId);
+           }
 
 
      public List<Notebook>  getNotebookByUserId(Long user){

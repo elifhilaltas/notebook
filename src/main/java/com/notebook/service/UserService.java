@@ -1,10 +1,9 @@
 package com.notebook.service;
 
-import com.notebook.domain.Notebook;
 import com.notebook.domain.User;
 import com.notebook.exception.UserNotFoundException;
-import com.notebook.repository.UserRepository;
 import com.notebook.repository.NotebookRepository;
+import com.notebook.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,17 +34,19 @@ public class UserService {
         userRepository.save(toEntity(user));
     }
 
-    public void delete(Long id){
-        userRepository.deleteById(id);
+    public void delete(Long userId){
+        userRepository.deleteById(userId);
     }
     public List<User> getUsers(){
         return (List<User>) userRepository.findAll();
         }
 
-    public User getUserById(Long id){
-        Optional<User> optionalUser = userRepository.findById(id);
-        return optionalUser.orElseThrow(() ->new  UserNotFoundException(" Could not found User with id :"+ id));
+    public User getUserById(Long userId)  throws UserNotFoundException {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        return optionalUser.orElseThrow(() ->new  UserNotFoundException("User Not Found", " Could not found User with id :" + userId, 1));
+
+         }
+
     }
 
 
-}

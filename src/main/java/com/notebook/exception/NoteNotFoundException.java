@@ -3,9 +3,10 @@ package com.notebook.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class NoteNotFoundException extends RuntimeException{
-    public NoteNotFoundException(String message) {
-        super(message);
+@ResponseStatus(value = HttpStatus.UNAUTHORIZED)
+public class NoteNotFoundException extends BaseException{
+
+    public NoteNotFoundException(String message, String detail, int code) {
+        super(message, detail, code);
     }
 }
