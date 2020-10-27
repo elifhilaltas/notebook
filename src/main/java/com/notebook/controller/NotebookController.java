@@ -45,11 +45,11 @@ public class NotebookController {
         notebookService.delete(id);
 
     }
+
+
     @GetMapping("/note/{id}")
     public List<Note> getUserById(@PathVariable(required = true) Long id){
         return noteService.getNoteByNoteBookId(id);
     }
-
-
 
 }
