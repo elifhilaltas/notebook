@@ -1,10 +1,11 @@
 package com.notebook.service;
 
-import com.notebook.domain.Notebook;
 import com.notebook.domain.User;
 import com.notebook.exception.UserNotFoundException;
-import com.notebook.repository.UserRepository;
 import com.notebook.repository.NotebookRepository;
+import com.notebook.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,9 +43,14 @@ public class UserService {
         return (List<User>) userRepository.findAll();
         }
 
+
     public User getUserById(Long id){
+
         Optional<User> optionalUser = userRepository.findById(id);
-        return optionalUser.orElseThrow(() ->new  UserNotFoundException(" Could not found User with id :"+ id));
+
+        Logger logger = LoggerFactory.getLogger(UserService.class);
+        logger.info("girilen id: "+ id);
+         return optionalUser.orElseThrow(() ->new  UserNotFoundException(" Could not found User with id :"+ id));
     }
 
 
